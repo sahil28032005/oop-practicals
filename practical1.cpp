@@ -1,8 +1,16 @@
+//   Develop a program in C++ to create a database of student’s information system containing the 
+// following information: Name, Roll number, Class, Division, Date of Birth, Blood group, Contact 
+// address, Telephone number, Driving license no. and other. Construct the database with 
+// suitable member functions. Make use of constructor, default constructor, copy constructor, 
+// destructor, static member functions, friend class, this pointer, inline code and dynamic 
+// memory allocation operators-new and delete as well as exception handling. 
 #include <iostream>
 using namespace std;
 class Student
 {
 public:
+    static int counterStd;
+    int localCounter = 0;
     int roll_number;
     long long telePhoneNumber, DrivingLicenseNumber;
     string name, std, division, DateOfBirth, BloodGroup, CtAddress;
@@ -20,6 +28,11 @@ public:
         this->CtAddress = "not filled";
     }
 
+    static int getCounter()
+    {
+        return counterStd;
+    }
+
     Student(int roll_number, long long number, long long DrivingLicenseNumber, string name, string std, string division, string DateOfBirth, string BloodGroup, string CtAddress)
     {
         this->roll_number = roll_number;
@@ -31,6 +44,18 @@ public:
         this->BloodGroup = BloodGroup;
         this->CtAddress = CtAddress;
         this->DrivingLicenseNumber = DrivingLicenseNumber;
+    }
+    Student(const Student& other) {
+        this->roll_number = other.roll_number;
+        this->telePhoneNumber = other.telePhoneNumber;
+        this->DrivingLicenseNumber = other.DrivingLicenseNumber;
+        this->name = other.name;
+        this->std = other.std;
+        this->division = other.division;
+        this->DateOfBirth = other.DateOfBirth;
+        this->BloodGroup = other.BloodGroup;
+        this->CtAddress = other.CtAddress;
+        this->localCounter = other.localCounter;
     }
     ~Student() { cout << "\nDestructor executed of class student"; }
     void addStudent()
@@ -56,10 +81,11 @@ public:
         cout << "enter the driving license number of student" << endl;
         cin >> this->DrivingLicenseNumber;
     }
-    void displayData()
+    inline void displayData()
     {
-        cout << "------------------------------------------------------------------------" << endl;
-        cout << "----------------------------STUDENT INFORMATION--------------------------" << endl;
+        cout << "----------------------------"
+             << "this is record no " << this->localCounter << "-------------------------" << endl;
+        cout << "----------------------------STUDENT INFORMATION-------------------------" << endl;
         cout << "------------------------------------------------------------------------" << endl;
         cout << "| ROLL NUMBER        : " << this->roll_number << endl;
         cout << "| NAME               : " << this->name << endl;
@@ -71,10 +97,12 @@ public:
         cout << "| ADDRESS            : " << this->CtAddress << endl;
         cout << "| DRIVING LICENSE NO.: " << this->DrivingLicenseNumber << endl;
         cout << "------------------------------------------------------------------------" << endl;
-        cout << "----------------------------STUDENT INFORMATION--------------------------" << endl;
+        cout << "----------------------------STUDENT INFORMATION-------------------------" << endl;
         cout << "------------------------------------------------------------------------" << endl;
+        cout << endl;
     }
 };
+int Student::counterStd = 0;
 
 class Faculty
 {
@@ -90,7 +118,7 @@ public:
 int main()
 {
     int counter = 0;
-    Student student[10];
+    Student *student = new Student[10];
     int choise;
 
     while (1)
@@ -102,13 +130,28 @@ int main()
         cout << "----------------------------------------------------------------" << endl;
         cout << "--------             WELCOME TO STUDENT DATABASE       --------" << endl;
         cout << "----------------------------------------------------------------" << endl;
-        cin >> choise;
+        try
+        {
+            cin >> choise;
+            if (choise > 4)
+            {
+                throw std::runtime_error("Choise must be selected from options given above not greater than 4...");
+            }
+        }
+        catch (const std::exception &e)
+        {
+            // Catch and handle the exception
+            std::cerr << "Exception caught: " << e.what() << std::endl;
+        }
+
         string divChoise;
         switch (choise)
         {
         case 1:
             cout << "you have selected option 1" << endl;
             student[counter].addStudent();
+            Student::counterStd++;
+            student[counter].localCounter = Student::counterStd;
             counter++;
             break;
         case 2:
@@ -133,6 +176,7 @@ int main()
         case 4:
             cout << "you have selected to exit Student database system" << endl;
             cout << "exiting........ " << endl;
+            delete[] student;
             break;
         }
         if (choise == 4)
