@@ -5,6 +5,7 @@ void selectionSort(dt *arr, int size)
 {
     for (int i = 0; i < size - 1; i++)
     {
+        // [12,2,34,23]
         int min;
         int j;
         for (j = i; j < size - 1; j++)
