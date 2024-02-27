@@ -37,7 +37,7 @@ void printArray(g *ptr, int size)
 int main()
 {
     int a[] = {12, 34, 56, 78, 1, 563};
-    float b[] = {12.5, 34.34, 56.9, 78.32, 1.09, 563.43};
+    float b[] = {12.5, 34.34, 56.9, 78.32, 1.09, 563.0};
     int size = sizeof(a) / sizeof(a[0]);
     selectionSort(b, size);
     printArray(b, size);

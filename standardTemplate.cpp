@@ -24,18 +24,18 @@ void displayPerson(PersonDetails p)
 int main()
 {
     vector<PersonDetails> data;
-    PersonDetails p;
+  
     int choise = 0;
     while (1)
     {
         // cin.ignore();
-
+PersonDetails p;
         cout << "enter your choise...\n1:add personDetails\n2:display personDetails in sorted manner\n3:search personDetails by name\n4:exit" << endl;
         cin >> choise;
         switch (choise)
         {
         case 1:
-
+            
             cout << "Enter your name" << endl;
             cin >> p.name;
             cout << "Enter phone number" << endl;

@@ -1,11 +1,11 @@
-// Implement a class Complex which represents the Complex Number data type. Implement the 
-// following 
-// 1. Constructor (including a default constructor which creates the complex number 0+0i). 
-// 2. Overload operator+ to add two complex numbers. 
-// 3. Overload operator* to multiply two complex numbers. 
+// Implement a class Complex which represents the Complex Number data type. Implement the
+// following
+// 1. Constructor (including a default constructor which creates the complex number 0+0i).
+// 2. Overload operator+ to add two complex numbers.
+// 3. Overload operator* to multiply two complex numbers.
 // 4. Overload operators << and >> to print and read Complex Numbers.
 #include <iostream>
-
+using namespace std;
 class Complex
 {
 private:
@@ -47,12 +47,12 @@ public:
     }
 
     // Overload the >> operator to read Complex Numbers
-    friend std::istream &operator>>(std::istream &is, Complex &complex)
+    friend istream &operator>>(istream &is, Complex &add)
     {
-        std::cout << "Enter real part: ";
-        is >> complex.real;
-        std::cout << "Enter imaginary part: ";
-        is >> complex.imag;
+        cout << "enter real part" << endl;
+        is >> add.real;
+        cout << "enter imaginary part" << endl;
+        is >> add.imag;
         return is;
     }
 };
